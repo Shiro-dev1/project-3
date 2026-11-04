@@ -230,6 +230,9 @@ const UI = {
     commentPh: "Например: без крышки, побольше корицы", asap: "Как можно скорее (~10 мин)", inMin: (m) => `Через ${m} мин`,
     pay: "Оплата при получении: картой или наличными", confirm: "Подтвердить заказ", back: "← Назад в корзину",
     errName: "Введите имя (минимум 2 буквы)", errPhone: "Введите номер: минимум 10 цифр",
+    doneHead: "Заказ принят", thanksName: (n) => `Спасибо, ${n}!`, doneSub: "Мы уже передали заказ бариста",
+    step1: "Принят", step2: "Готовим", step3: "Готов",
+    doneWhere: "Честнат-стрит, 12, Портленд", doneHint: "Назовите номер заказа на кассе, и мы сразу его отдадим ☕",
     doneTitle: (n) => `Заказ №${n} принят!`, doneReady: "Будет готов", doneWhen: (d, t) => `${d} в ${t}`,
     today: "сегодня", tomorrow: "завтра", tz: "по времени Портленда",
     doneText: (name) => `${name}, ждём вас по адресу: Честнат-стрит, 12. Назовите номер заказа бариста.`,
@@ -249,6 +252,9 @@ const UI = {
     commentPh: "E.g. no lid, extra cinnamon", asap: "As soon as possible (~10 min)", inMin: (m) => `In ${m} min`,
     pay: "Pay on pickup: card or cash", confirm: "Place order", back: "← Back to cart",
     errName: "Enter your name (at least 2 letters)", errPhone: "Enter a number: at least 10 digits",
+    doneHead: "Order placed", thanksName: (n) => `Thank you, ${n}!`, doneSub: "Your order is already with the barista",
+    step1: "Received", step2: "Brewing", step3: "Ready",
+    doneWhere: "12 Chestnut St, Portland", doneHint: "Tell the barista your order number and grab your coffee ☕",
     doneTitle: (n) => `Order #${n} confirmed!`, doneReady: "Ready", doneWhen: (d, t) => `${d} at ${t}`,
     today: "today", tomorrow: "tomorrow", tz: "Portland time",
     doneText: (name) => `${name}, see you at 12 Chestnut St. Just tell the barista your order number.`,
@@ -357,7 +363,7 @@ function renderCart() {
   const count = cart.reduce((sum, r) => sum + r.qty, 0);
   document.getElementById("cart-count").textContent = count;
   document.getElementById("cart-count").hidden = count === 0;
-  document.getElementById("cart-title").textContent = cartView === "form" ? t.form : t.cart;
+  document.getElementById("cart-title").textContent = cartView === "form" ? t.form : cartView === "done" ? t.doneHead : t.cart;
   document.getElementById("cart-total-label").textContent = t.total;
   document.getElementById("cart-total").textContent = money(cartTotal());
   const foot = document.querySelector(".cart__foot");
@@ -456,7 +462,13 @@ function submitOrder() {
   else if (ready >= close) { ready = HOURS[(day + 1) % 7][0] + 15; readyDay = "tomorrow"; }
   ready = Math.ceil(ready / 5) * 5; // округляем до 5 минут
 
-  lastOrder = { no: Math.floor(1000 + Math.random() * 9000), name: formData.name.trim(), ready, readyDay, total: cartTotal() };
+  const name = formData.name.trim();
+  lastOrder = {
+    no: Math.floor(1000 + Math.random() * 9000),
+    name: name.charAt(0).toUpperCase() + name.slice(1),
+    ready, readyDay, total: cartTotal(),
+    items: cart.map((r) => ({ ...r })), // копия, чтобы показать в чеке
+  };
   cart = [];
   saveCart();
   formData.comment = "";
@@ -467,14 +479,43 @@ function submitOrder() {
 function doneHTML() {
   const t = UI[lang];
   const o = lastOrder;
+  const items = o.items.map((r) => `
+    <li><span>${r.qty} × ${MENU[r.tab][r.i][lang][0]}${optionsText(r) ? `<small>${optionsText(r)}</small>` : ""}</span>
+      <b>${money(unitPrice(r) * r.qty)}</b></li>`).join("");
   return `<div class="done">
-    <div class="done__icon">✅</div>
-    <h4>${t.doneTitle(o.no)}</h4>
-    <p class="done__ready">${t.doneReady} <b>${t.doneWhen(t[o.readyDay], fmtTime(o.ready))}</b><br><small>${t.tz}</small></p>
-    <p>${t.doneText(escapeHTML(o.name))}</p>
-    <p class="done__total">${t.total}: <b>${money(o.total)}</b></p>
+    <svg class="done__check" viewBox="0 0 52 52" aria-hidden="true">
+      <circle cx="26" cy="26" r="24" />
+      <path d="M15 27 l7 7 l15 -16" />
+    </svg>
+    <h4>${t.thanksName(escapeHTML(o.name))}</h4>
+    <p class="done__sub">${t.doneSub}</p>
+
+    <ol class="steps">
+      <li class="is-done"><span></span>${t.step1}</li>
+      <li class="is-now"><span></span>${t.step2}</li>
+      <li><span></span>${t.step3}</li>
+    </ol>
+
+    <div class="receipt">
+      <div class="receipt__head">
+        <span>Coffee &amp; Chill</span>
+        <strong>№${o.no}</strong>
+      </div>
+      <div class="receipt__ready">
+        <span>⏱ ${t.doneReady}</span>
+        <b>${t.doneWhen(t[o.readyDay], fmtTime(o.ready))}</b>
+        <small>${t.tz}</small>
+      </div>
+      <div class="receipt__cut"></div>
+      <ul class="receipt__items">${items}</ul>
+      <div class="receipt__total"><span>${t.total}</span><b>${money(o.total)}</b></div>
+      <div class="receipt__cut"></div>
+      <p class="receipt__where">📍 ${t.doneWhere}<br>💳 ${t.pay}</p>
+    </div>
+
+    <p class="done__hint">${t.doneHint}</p>
+    <button type="button" class="btn btn--primary done__btn" id="done-close">${t.toMenu}</button>
     <p class="done__demo">${t.demo}</p>
-    <button type="button" class="btn btn--primary" id="done-close">${t.toMenu}</button>
   </div>`;
 }
 

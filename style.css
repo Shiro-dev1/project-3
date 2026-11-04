@@ -386,13 +386,70 @@ h1, h2, .logo { font-family: "Playfair Display", Georgia, serif; }
 .field__err { font-style: normal; font-size: .8rem; color: #c0392b; font-weight: 500; min-height: 0; }
 .field__err:empty { display: none; }
 .order__pay { font-size: .85rem; color: var(--muted); }
-.done { text-align: center; padding: 30px 6px; display: grid; gap: 12px; justify-items: center; }
-.done__icon { font-size: 3rem; animation: bump .5s; }
-.done h4 { font-family: "Playfair Display", serif; font-size: 1.6rem; color: var(--brown); }
-.done__ready { background: var(--cream); border-radius: 14px; padding: 12px 18px; }
-.done__ready b { font-size: 1.15rem; color: var(--brown); }
-.done__ready small, .done__demo { color: var(--muted); font-size: .8rem; }
-.done .btn { border: 0; cursor: pointer; font: 600 1rem "Inter", sans-serif; margin-top: 6px; }
+/* Экран «Заказ принят» */
+.done { display: grid; justify-items: center; text-align: center; padding: 22px 0 10px; }
+.done__check { width: 78px; height: 78px; margin-bottom: 14px; }
+.done__check circle {
+  fill: none; stroke: var(--button); stroke-width: 3;
+  stroke-dasharray: 151; stroke-dashoffset: 151; animation: draw .6s ease forwards;
+}
+.done__check path {
+  fill: none; stroke: var(--button); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 36; stroke-dashoffset: 36; animation: draw .35s .55s ease forwards;
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.done h4 { font-family: "Playfair Display", serif; font-size: 1.8rem; color: var(--brown); line-height: 1.2; }
+.done__sub { color: var(--muted); margin-top: 4px; }
+
+/* Шкала статуса заказа */
+.steps { list-style: none; display: flex; width: 100%; margin: 22px 0 20px; }
+.steps li { flex: 1; position: relative; display: grid; justify-items: center; gap: 6px; font-size: .78rem; color: var(--muted); }
+.steps li::before {
+  content: ""; position: absolute; top: 7px; left: -50%; width: 100%; height: 2px; background: var(--beige); z-index: 0;
+}
+.steps li:first-child::before { display: none; }
+.steps span { width: 16px; height: 16px; border-radius: 50%; background: var(--beige); position: relative; z-index: 1; }
+.steps .is-done, .steps .is-now { color: var(--brown); font-weight: 600; }
+.steps .is-done span { background: var(--button); }
+.steps .is-now span { background: var(--white); border: 3px solid var(--button); animation: ring 1.6s infinite; }
+.steps .is-now::before, .steps .is-done::before { background: var(--button); }
+@keyframes ring { 50% { box-shadow: 0 0 0 6px rgba(139, 90, 58, .2); } }
+
+/* Чек */
+.receipt {
+  width: 100%; text-align: left; background: var(--cream); border: 1px solid var(--beige);
+  border-radius: 18px; padding: 18px 18px 14px; position: relative;
+}
+.receipt__head { display: flex; justify-content: space-between; align-items: baseline; }
+.receipt__head span { font-family: "Playfair Display", serif; font-size: 1.05rem; color: var(--muted); }
+.receipt__head strong { font-family: "Playfair Display", serif; font-size: 1.9rem; color: var(--brown); line-height: 1; }
+.receipt__ready {
+  display: grid; gap: 2px; margin-top: 14px; padding: 12px 14px; border-radius: 12px;
+  background: var(--white); border: 1px solid var(--beige);
+}
+.receipt__ready span { font-size: .8rem; color: var(--muted); }
+.receipt__ready b { font-size: 1.25rem; color: var(--dark); }
+.receipt__ready small { font-size: .75rem; color: var(--muted); }
+/* Линия отрыва с полукруглыми вырезами, как у настоящего чека */
+.receipt__cut { position: relative; height: 1px; margin: 16px -18px; border-top: 2px dashed var(--beige); }
+.receipt__cut::before, .receipt__cut::after {
+  content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--white); border: 1px solid var(--beige);
+}
+.receipt__cut::before { left: -10px; }
+.receipt__cut::after { right: -10px; }
+.receipt__items { list-style: none; display: grid; gap: 10px; font-size: .92rem; }
+.receipt__items li { display: flex; justify-content: space-between; gap: 12px; }
+.receipt__items small { display: block; font-size: .76rem; color: var(--muted); }
+.receipt__items b { white-space: nowrap; font-weight: 600; }
+.receipt__total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--beige); }
+.receipt__total span { font-weight: 600; }
+.receipt__total b { font-family: "Playfair Display", serif; font-size: 1.5rem; color: var(--brown); }
+.receipt__where { font-size: .82rem; color: var(--muted); line-height: 1.8; }
+
+.done__hint { margin: 18px 0 14px; font-size: .9rem; }
+.done__btn { width: 100%; border: 0; cursor: pointer; font: 600 1rem "Inter", sans-serif; text-align: center; }
+.done__demo { margin-top: 12px; font-size: .75rem; color: var(--muted); opacity: .8; }
 
 /* ===== Анимации при прокрутке ===== */
 .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; transition-delay: var(--d, 0ms); }
