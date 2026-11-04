@@ -1,27 +1,42 @@
 // ===== Меню кофейни =====
 // Цены в долларах. У кофе три цены: маленький, средний, большой размер.
 // Чтобы добавить позицию, просто допиши строку в нужный список.
+// tags: vegan — веган, lf — без лактозы, sf — без сахара, hit — хит, season — сезонное
+// Новые позиции добавляем в КОНЕЦ списка, чтобы не сломать сохранённые корзины.
 const MENU = {
   coffee: [
-    { ru: ["Эспрессо", "Крепкий и ароматный"], en: ["Espresso", "Strong and aromatic"], price: [2.5, 3.0, 3.5] },
-    { ru: ["Американо", "Эспрессо с горячей водой"], en: ["Americano", "Espresso with hot water"], price: [3.0, 3.5, 4.0] },
-    { ru: ["Капучино", "Нежная молочная пенка"], en: ["Cappuccino", "Silky milk foam"], price: [3.75, 4.25, 4.75] },
-    { ru: ["Латте", "Мягкий вкус с большим количеством молока"], en: ["Latte", "Mild taste with lots of milk"], price: [4.0, 4.5, 5.0] },
-    { ru: ["Раф с корицей", "Фирменный напиток со сливками и корицей"], en: ["Cinnamon Raf", "Our signature drink with cream and cinnamon"], price: [4.75, 5.25, 5.75] },
-    { ru: ["Флэт уайт", "Двойной эспрессо и бархатное молоко"], en: ["Flat White", "Double espresso and velvety milk"], price: [4.25, 4.75, 5.25] },
+    { ru: ["Эспрессо", "Крепкий и ароматный"], en: ["Espresso", "Strong and aromatic"], price: [2.5, 3.0, 3.5], tags: ["vegan", "lf", "sf"] },
+    { ru: ["Американо", "Эспрессо с горячей водой"], en: ["Americano", "Espresso with hot water"], price: [3.0, 3.5, 4.0], tags: ["vegan", "lf", "sf", "hit"] },
+    { ru: ["Капучино", "Нежная молочная пенка"], en: ["Cappuccino", "Silky milk foam"], price: [3.75, 4.25, 4.75], tags: ["sf", "hit"] },
+    { ru: ["Латте", "Мягкий вкус с большим количеством молока"], en: ["Latte", "Mild taste with lots of milk"], price: [4.0, 4.5, 5.0], tags: ["sf"] },
+    { ru: ["Раф с корицей", "Фирменный напиток со сливками и корицей"], en: ["Cinnamon Raf", "Our signature drink with cream and cinnamon"], price: [4.75, 5.25, 5.75], tags: ["hit"] },
+    { ru: ["Флэт уайт", "Двойной эспрессо и бархатное молоко"], en: ["Flat White", "Double espresso and velvety milk"], price: [4.25, 4.75, 5.25], tags: ["sf"] },
+    { ru: ["Латте на овсяном", "Растительное молоко, без лактозы"], en: ["Oat milk latte", "Plant-based milk, lactose-free"], price: [4.5, 5.0, 5.5], tags: ["vegan", "lf"] },
+    { ru: ["Тыквенный латте", "Тыква, корица и мускатный орех. Только осенью"], en: ["Pumpkin spice latte", "Pumpkin, cinnamon and nutmeg. Fall only"], price: [4.75, 5.25, 5.75], tags: ["season"] },
   ],
   tea: [
-    { ru: ["Чёрный с чабрецом", "Чайник на одного"], en: ["Black tea with thyme", "Pot for one"], price: 3.5 },
-    { ru: ["Зелёный жасмин", "Чайник на одного"], en: ["Jasmine green tea", "Pot for one"], price: 3.75 },
-    { ru: ["Облепиховый", "С мёдом и апельсином"], en: ["Sea buckthorn tea", "With honey and orange"], price: 4.25 },
-    { ru: ["Матча латте", "Японский чай с молоком"], en: ["Matcha latte", "Japanese tea with milk"], price: 5.0 },
+    { ru: ["Чёрный с чабрецом", "Чайник на одного"], en: ["Black tea with thyme", "Pot for one"], price: 3.5, tags: ["vegan", "lf", "sf"] },
+    { ru: ["Зелёный жасмин", "Чайник на одного"], en: ["Jasmine green tea", "Pot for one"], price: 3.75, tags: ["vegan", "lf", "sf"] },
+    { ru: ["Облепиховый", "С мёдом и апельсином"], en: ["Sea buckthorn tea", "With honey and orange"], price: 4.25, tags: ["lf", "season"] },
+    { ru: ["Матча латте", "Японский чай с молоком"], en: ["Matcha latte", "Japanese tea with milk"], price: 5.0, tags: ["hit"] },
   ],
   desserts: [
-    { ru: ["Синнабон", "Булочка с корицей и сливочным кремом"], en: ["Cinnamon roll", "With cream cheese frosting"], price: 4.5 },
-    { ru: ["Чизкейк Нью-Йорк", "Классический, нежный"], en: ["New York cheesecake", "Classic and creamy"], price: 5.5 },
-    { ru: ["Морковный торт", "С грецкими орехами"], en: ["Carrot cake", "With walnuts"], price: 5.0 },
-    { ru: ["Круассан", "Свежий, хрустящий"], en: ["Croissant", "Fresh and flaky"], price: 3.25 },
+    { ru: ["Синнабон", "Булочка с корицей и сливочным кремом"], en: ["Cinnamon roll", "With cream cheese frosting"], price: 4.5, tags: ["hit"] },
+    { ru: ["Чизкейк Нью-Йорк", "Классический, нежный"], en: ["New York cheesecake", "Classic and creamy"], price: 5.5, tags: ["hit"] },
+    { ru: ["Морковный торт", "С грецкими орехами"], en: ["Carrot cake", "With walnuts"], price: 5.0, tags: ["season"] },
+    { ru: ["Круассан", "Свежий, хрустящий"], en: ["Croissant", "Fresh and flaky"], price: 3.25, tags: [] },
+    { ru: ["Банановый хлеб", "Без яиц и молока"], en: ["Banana bread", "No eggs, no dairy"], price: 4.25, tags: ["vegan", "lf"] },
+    { ru: ["Брауни на стевии", "Тёмный шоколад, без добавленного сахара"], en: ["Stevia brownie", "Dark chocolate, no added sugar"], price: 4.75, tags: ["sf"] },
   ],
+};
+
+// Метки: значок и подпись
+const TAGS = {
+  vegan:  { icon: "🌱", ru: "Веган", en: "Vegan" },
+  lf:     { icon: "🥛", ru: "Без лактозы", en: "Lactose-free" },
+  sf:     { icon: "🚫", ru: "Без сахара", en: "Sugar-free" },
+  hit:    { icon: "🔥", ru: "Хит", en: "Bestseller" },
+  season: { icon: "🍂", ru: "Сезонное", en: "Seasonal" },
 };
 
 // Размеры кофе (объём в унциях, как в США)
@@ -42,6 +57,14 @@ const EN = {
   "about.p1": "Coffee & Chill is a small coffee house in the heart of the city. We choose our beans from trusted roasters and make every cup as if we were making it for a friend.",
   "about.p2": "It smells of fresh pastries and cinnamon, soft music plays, and there is always a seat by the window to read or work.",
   "about.f1": "kinds of coffee", "about.f2": "homemade desserts", "about.f3": "open every day", "about.f3num": "7 AM",
+  "story.eyebrow": "Coffee Story", "story.title": "Where our coffee comes from",
+  "story.lead": "Our arabica: Brazil & Ethiopia, medium roast, notes of chocolate and dried fruit.",
+  "story.origin": "Origin", "story.brazil": "Brazil", "story.ethiopia": "Ethiopia",
+  "story.brazil.note": "Body and chocolate sweetness", "story.ethiopia.note": "Brightness and fruity aroma",
+  "story.roast": "Roast", "story.light": "Light", "story.medium": "Medium", "story.dark": "Dark",
+  "story.roast.note": "Balanced: no bitterness, no sourness",
+  "story.notes": "Tasting notes", "story.choc": "Chocolate", "story.fruit": "Dried fruit",
+  "story.bean": "Bean", "story.arabica": "100% arabica", "story.bean.note": "Roasted fresh every week",
   "menu.title": "Menu", "menu.coffee": "Coffee", "menu.tea": "Tea", "menu.desserts": "Desserts",
   "gallery.title": "Gallery",
   "reviews.title": "Guest reviews",
@@ -61,19 +84,39 @@ document.querySelectorAll("[data-i18n]").forEach((el) => { RU[el.dataset.i18n] =
 
 let lang = "ru";
 let currentTab = "coffee";
+let currentFilter = "all"; // какая метка выбрана в фильтре
 
 // Выбранный размер для каждого кофе (по умолчанию средний)
 const chosenSize = {};
 
 const money = (n) => "$" + n.toFixed(2);
 
+function renderFilters() {
+  const keys = ["all", ...Object.keys(TAGS)];
+  document.getElementById("filters").innerHTML = keys.map((k) => {
+    const label = k === "all" ? UI[lang].all : `${TAGS[k].icon} ${TAGS[k][lang]}`;
+    return `<button type="button" class="filter${k === currentFilter ? " is-active" : ""}" data-filter="${k}">${label}</button>`;
+  }).join("");
+}
+
 function renderMenu() {
   const list = document.getElementById("menu-list");
-  list.innerHTML = MENU[currentTab].map((item, i) => {
+  // Сохраняем исходный номер позиции (i), чтобы корзина и размеры работали и с фильтром
+  const items = MENU[currentTab]
+    .map((item, i) => ({ item, i }))
+    .filter(({ item }) => currentFilter === "all" || item.tags.includes(currentFilter));
+  if (items.length === 0) {
+    list.innerHTML = `<p class="menu__empty">${UI[lang].noItems}</p>`;
+    return;
+  }
+  list.innerHTML = items.map(({ item, i }) => {
     const [name, desc] = item[lang];
     const hasSizes = Array.isArray(item.price);
     const size = chosenSize[i] ?? 1;
     const price = hasSizes ? item.price[size] : item.price;
+    const badges = item.tags.length
+      ? `<div class="badges">${item.tags.map((t) => `<span class="badge badge--${t}">${TAGS[t].icon} ${TAGS[t][lang]}</span>`).join("")}</div>`
+      : "";
     const sizes = hasSizes
       ? `<div class="sizes"><span class="sizes__label">${SIZE_LABEL[lang]}</span>${SIZES[lang].map(([short, full], s) =>
           `<button type="button" class="size${s === size ? " is-active" : ""}" data-item="${i}" data-size="${s}" title="${full}">${short}</button>`
@@ -82,10 +125,20 @@ function renderMenu() {
     return `<div class="item">
       <div class="item__top"><span class="item__name">${name}</span><span class="item__dots"></span><span class="item__price">${money(price)}</span></div>
       <p class="item__desc">${desc}</p>
+      ${badges}
       <div class="item__bottom">${sizes}<button type="button" class="add" data-add="${i}">+ ${UI[lang].add}</button></div>
     </div>`;
   }).join("");
 }
+
+// Клик по фильтру
+document.getElementById("filters").addEventListener("click", (e) => {
+  const b = e.target.closest(".filter");
+  if (!b) return;
+  currentFilter = b.dataset.filter;
+  renderFilters();
+  renderMenu();
+});
 
 // Клик по размеру: меняем цену. Клик по «В корзину»: добавляем товар
 document.getElementById("menu-list").addEventListener("click", (e) => {
@@ -114,11 +167,13 @@ document.getElementById("menu-list").addEventListener("click", (e) => {
 // ===== Корзина =====
 const UI = {
   ru: {
+    all: "Все", noItems: "В этой категории нет позиций с такой меткой. Попробуйте другую вкладку 🙂",
     add: "В корзину", added: "Добавлено", cart: "Корзина", empty: "Корзина пуста. Загляните в меню ☕",
     total: "Итого", checkout: "Оформить заказ", clear: "Очистить корзину", remove: "Удалить",
     thanks: "Спасибо! Заказ принят (это демо, деньги не списываются).", size: { 0: "маленький", 1: "средний", 2: "большой" },
   },
   en: {
+    all: "All", noItems: "No items with this label in this category. Try another tab 🙂",
     add: "Add to cart", added: "Added", cart: "Cart", empty: "Your cart is empty. Check out the menu ☕",
     total: "Total", checkout: "Checkout", clear: "Clear cart", remove: "Remove",
     thanks: "Thank you! Order placed (this is a demo, no money is charged).", size: { 0: "small", 1: "medium", 2: "large" },
@@ -242,6 +297,7 @@ function setLang(next) {
   document.getElementById("lang").textContent = lang === "ru" ? "EN" : "RU";
   document.title = lang === "ru" ? "Coffee & Chill — кофейня" : "Coffee & Chill — coffee house";
   document.getElementById("cart-open").setAttribute("aria-label", UI[lang].cart);
+  renderFilters();
   renderMenu();
   renderCart();
   try { localStorage.setItem("lang", lang); } catch (e) {}

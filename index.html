@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
@@ -69,6 +69,55 @@
       </div>
     </section>
 
+    <!-- Происхождение зерна -->
+    <section class="section story" id="story">
+      <div class="container">
+        <p class="story__eyebrow" data-i18n="story.eyebrow">Coffee Story</p>
+        <h2 class="section__title center" data-i18n="story.title">Откуда наш кофе</h2>
+        <p class="story__lead" data-i18n="story.lead">Наша арабика: Бразилия &amp; Эфиопия, средняя обжарка, ноты шоколада и сухофруктов.</p>
+
+        <div class="story__grid">
+          <div class="story__card">
+            <h3 data-i18n="story.origin">Происхождение</h3>
+            <div class="origin">
+              <div class="origin__row"><span>🇧🇷 <b data-i18n="story.brazil">Бразилия</b></span><span>60%</span></div>
+              <div class="bar"><span style="width:60%"></span></div>
+              <small data-i18n="story.brazil.note">Плотность и шоколадная сладость</small>
+            </div>
+            <div class="origin">
+              <div class="origin__row"><span>🇪🇹 <b data-i18n="story.ethiopia">Эфиопия</b></span><span>40%</span></div>
+              <div class="bar bar--light"><span style="width:40%"></span></div>
+              <small data-i18n="story.ethiopia.note">Яркость и фруктовый аромат</small>
+            </div>
+          </div>
+
+          <div class="story__card">
+            <h3 data-i18n="story.roast">Обжарка</h3>
+            <div class="roast">
+              <span class="roast__dot" style="--c:#c9a27e"></span>
+              <span class="roast__dot" style="--c:#a87a52"></span>
+              <span class="roast__dot is-active" style="--c:#7a4e2d"></span>
+              <span class="roast__dot" style="--c:#4e2f19"></span>
+              <span class="roast__dot" style="--c:#2a170b"></span>
+            </div>
+            <div class="roast__labels"><span data-i18n="story.light">Светлая</span><b data-i18n="story.medium">Средняя</b><span data-i18n="story.dark">Тёмная</span></div>
+            <small data-i18n="story.roast.note">Баланс: без горечи и без кислинки</small>
+          </div>
+
+          <div class="story__card">
+            <h3 data-i18n="story.notes">Ноты вкуса</h3>
+            <div class="notes">
+              <span class="note">🍫 <span data-i18n="story.choc">Шоколад</span></span>
+              <span class="note">🍇 <span data-i18n="story.fruit">Сухофрукты</span></span>
+            </div>
+            <h3 class="story__sub" data-i18n="story.bean">Зерно</h3>
+            <p class="story__big" data-i18n="story.arabica">100% арабика</p>
+            <small data-i18n="story.bean.note">Обжариваем свежим каждую неделю</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Меню -->
     <section class="section menu" id="menu">
       <div class="container">
@@ -78,6 +127,7 @@
           <button class="tab" data-tab="tea" role="tab" data-i18n="menu.tea">Чай</button>
           <button class="tab" data-tab="desserts" role="tab" data-i18n="menu.desserts">Десерты</button>
         </div>
+        <div class="filters" id="filters" aria-label="Фильтр по меткам"></div>
         <div class="menu__list" id="menu-list"></div>
       </div>
     </section>
@@ -162,6 +212,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
