@@ -39,7 +39,7 @@ const EN = {
   "hero.text": "Freshly roasted beans, homemade desserts and a place where you want to stay a little longer.",
   "hero.btn": "See the menu", "hero.btn2": "Find us",
   "about.title": "About us",
-  "about.p1": "Korica is a small coffee house in the heart of the city. We choose our beans from trusted roasters and make every cup as if we were making it for a friend.",
+  "about.p1": "Coffee & Chill is a small coffee house in the heart of the city. We choose our beans from trusted roasters and make every cup as if we were making it for a friend.",
   "about.p2": "It smells of fresh pastries and cinnamon, soft music plays, and there is always a seat by the window to read or work.",
   "about.f1": "kinds of coffee", "about.f2": "homemade desserts", "about.f3": "open every day", "about.f3num": "7 AM",
   "menu.title": "Menu", "menu.coffee": "Coffee", "menu.tea": "Tea", "menu.desserts": "Desserts",
@@ -52,7 +52,7 @@ const EN = {
   "contacts.address": "12 Chestnut St, Portland, OR, USA (fictional address)",
   "contacts.hours": "Mon–Fri 7 AM – 10 PM, Sat–Sun 8 AM – 11 PM",
   "contacts.map": "The map will be here",
-  "footer.note": "© 2026 Korica. Practice project, this coffee house doesn't exist.",
+  "footer.note": "© 2026 Coffee & Chill. Practice project, this coffee house doesn't exist.",
 };
 
 // Запоминаем русские тексты прямо со страницы, чтобы переключаться обратно
@@ -240,8 +240,7 @@ function setLang(next) {
   document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = dict[el.dataset.i18n]; });
   document.documentElement.lang = lang;
   document.getElementById("lang").textContent = lang === "ru" ? "EN" : "RU";
-  document.title = lang === "ru" ? "Корица — кофейня" : "Korica — coffee house";
-  document.querySelector(".logo").firstChild.textContent = lang === "ru" ? "Корица" : "Korica";
+  document.title = lang === "ru" ? "Coffee & Chill — кофейня" : "Coffee & Chill — coffee house";
   document.getElementById("cart-open").setAttribute("aria-label", UI[lang].cart);
   renderMenu();
   renderCart();

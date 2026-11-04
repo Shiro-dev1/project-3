@@ -4,6 +4,7 @@
   --beige: #ead9c4;
   --latte: #c89f7a;
   --brown: #6b4226;
+  --button: #8b5a3a; /* цвет кнопок */
   --dark: #2e1d12;
   --white: #fffaf4;
   --radius: 18px;
@@ -63,7 +64,7 @@ h1, h2, .logo { font-family: "Playfair Display", Georgia, serif; }
   font-weight: 600; transition: transform .2s, background .2s;
 }
 .btn:hover { transform: translateY(-2px); }
-.btn--primary { background: var(--latte); color: var(--white); }
+.btn--primary { background: var(--button); color: var(--white); }
 .btn--primary:hover { background: var(--brown); }
 .btn--ghost { border: 2px solid var(--white); color: var(--white); }
 .btn--ghost:hover { background: var(--white); color: var(--dark); }
@@ -110,11 +111,11 @@ h1, h2, .logo { font-family: "Playfair Display", Georgia, serif; }
 .menu { background: var(--white); }
 .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
 .tab {
-  border: 1.5px solid var(--latte); background: none; color: var(--brown);
+  border: 1.5px solid var(--button); background: none; color: var(--brown);
   padding: 10px 24px; border-radius: 999px; font: 500 1rem "Inter", sans-serif; cursor: pointer; transition: .2s;
 }
 .tab:hover { background: var(--beige); }
-.tab.is-active { background: var(--latte); color: var(--white); }
+.tab.is-active { background: var(--button); border-color: var(--button); color: var(--white); }
 .menu__list { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 48px; }
 .item { padding: 16px 0; border-bottom: 1px dashed var(--beige); animation: fade .4s ease both; }
 .item__top { display: flex; align-items: baseline; gap: 10px; }
@@ -125,7 +126,7 @@ h1, h2, .logo { font-family: "Playfair Display", Georgia, serif; }
 .sizes { display: flex; align-items: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
 .sizes__label { font-size: .85rem; color: var(--brown); margin-right: 2px; }
 .size {
-  width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--latte);
+  width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--button);
   background: none; color: var(--brown); font: 600 .85rem "Inter", sans-serif; cursor: pointer; transition: .2s;
 }
 .size:hover { background: var(--beige); }
@@ -165,7 +166,7 @@ h1, h2, .logo { font-family: "Playfair Display", Georgia, serif; }
 .item__bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
 .item__bottom .sizes { margin-top: 0; }
 .add {
-  margin-left: auto; border: 0; background: var(--latte); color: var(--white);
+  margin-left: auto; border: 0; background: var(--button); color: var(--white);
   padding: 8px 16px; border-radius: 999px; font: 600 .85rem "Inter", sans-serif; cursor: pointer; transition: .2s;
 }
 .add:hover { background: var(--brown); }
@@ -179,7 +180,7 @@ h1, h2, .logo { font-family: "Playfair Display", Georgia, serif; }
 .cart-btn:hover { background: var(--beige); }
 .cart-count {
   position: absolute; top: 0; right: -2px; min-width: 20px; height: 20px; padding: 0 5px;
-  border-radius: 999px; background: var(--latte); color: var(--white);
+  border-radius: 999px; background: var(--button); color: var(--white);
   font: 700 .72rem/20px "Inter", sans-serif; text-align: center;
 }
 .cart-count[hidden] { display: none; }
@@ -207,7 +208,7 @@ h1, h2, .logo { font-family: "Playfair Display", Georgia, serif; }
 .cart__sum { font-weight: 600; color: var(--brown); min-width: 56px; text-align: right; }
 .qty { display: flex; align-items: center; gap: 6px; }
 .qty button {
-  width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--latte);
+  width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--button);
   background: none; color: var(--brown); cursor: pointer; font-size: 1rem; line-height: 1;
 }
 .qty button:hover { background: var(--beige); }
