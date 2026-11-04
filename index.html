@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Корица — кофейня</title>
+  <meta name="description" content="Корица — уютная кофейня: свежая обжарка, домашние десерты и тёплая атмосфера.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a href="#top" class="logo">Корица<span>.</span></a>
+      <nav class="nav" id="nav">
+        <a href="#about" data-i18n="nav.about">О нас</a>
+        <a href="#menu" data-i18n="nav.menu">Меню</a>
+        <a href="#gallery" data-i18n="nav.gallery">Галерея</a>
+        <a href="#reviews" data-i18n="nav.reviews">Отзывы</a>
+        <a href="#contacts" data-i18n="nav.contacts">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <button class="lang" id="lang" type="button" aria-label="Сменить язык">EN</button>
+        <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Главный экран -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <p class="hero__eyebrow" data-i18n="hero.eyebrow">Кофейня с 2026 года</p>
+        <h1 class="hero__title" data-i18n="hero.title">Кофе, который согревает</h1>
+        <p class="hero__text" data-i18n="hero.text">Свежая обжарка, домашние десерты и место, где хочется задержаться подольше.</p>
+        <div class="hero__buttons">
+          <a href="#menu" class="btn btn--primary" data-i18n="hero.btn">Смотреть меню</a>
+          <a href="#contacts" class="btn btn--ghost" data-i18n="hero.btn2">Как нас найти</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- О нас -->
+    <section class="section about" id="about">
+      <div class="container about__inner">
+        <figure class="photo about__photo">
+          <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=900&q=70" alt="Интерьер кофейни" loading="lazy">
+        </figure>
+        <div>
+          <h2 class="section__title" data-i18n="about.title">О нас</h2>
+          <p data-i18n="about.p1">«Корица» — маленькая кофейня в самом центре города. Мы сами выбираем зерно у проверенных обжарщиков и готовим каждую чашку так, будто варим её для друга.</p>
+          <p data-i18n="about.p2">У нас пахнет свежей выпечкой и корицей, играет тихая музыка, а у окна всегда найдётся место, чтобы почитать или поработать.</p>
+          <ul class="facts">
+            <li><strong>12</strong><span data-i18n="about.f1">видов кофе</span></li>
+            <li><strong>8</strong><span data-i18n="about.f2">домашних десертов</span></li>
+            <li><strong>7:00</strong><span data-i18n="about.f3">открываемся каждый день</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Меню -->
+    <section class="section menu" id="menu">
+      <div class="container">
+        <h2 class="section__title center" data-i18n="menu.title">Меню</h2>
+        <div class="tabs" role="tablist">
+          <button class="tab is-active" data-tab="coffee" role="tab" data-i18n="menu.coffee">Кофе</button>
+          <button class="tab" data-tab="tea" role="tab" data-i18n="menu.tea">Чай</button>
+          <button class="tab" data-tab="desserts" role="tab" data-i18n="menu.desserts">Десерты</button>
+        </div>
+        <div class="menu__list" id="menu-list"></div>
+      </div>
+    </section>
+
+    <!-- Галерея -->
+    <section class="section gallery" id="gallery">
+      <div class="container">
+        <h2 class="section__title center" data-i18n="gallery.title">Галерея</h2>
+        <div class="gallery__grid">
+          <figure class="photo"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=700&q=70" alt="Капучино" loading="lazy"></figure>
+          <figure class="photo"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=700&q=70" alt="Кофейные зёрна" loading="lazy"></figure>
+          <figure class="photo"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=700&q=70" alt="Чашка кофе" loading="lazy"></figure>
+          <figure class="photo"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=700&q=70" alt="Зал кофейни" loading="lazy"></figure>
+          <figure class="photo"><img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=700&q=70" alt="Приготовление кофе" loading="lazy"></figure>
+          <figure class="photo"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=700&q=70" alt="Латте-арт" loading="lazy"></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="section reviews" id="reviews">
+      <div class="container">
+        <h2 class="section__title center" data-i18n="reviews.title">Отзывы гостей</h2>
+        <div class="reviews__grid">
+          <blockquote class="review">
+            <div class="stars">★★★★★</div>
+            <p data-i18n="reviews.r1">Лучший раф с корицей в городе! Захожу каждое утро перед учёбой.</p>
+            <cite data-i18n="reviews.n1">Аня, студентка</cite>
+          </blockquote>
+          <blockquote class="review">
+            <div class="stars">★★★★★</div>
+            <p data-i18n="reviews.r2">Тихо, уютно и есть розетки у каждого стола. Идеально для работы с ноутбуком.</p>
+            <cite data-i18n="reviews.n2">Максим, дизайнер</cite>
+          </blockquote>
+          <blockquote class="review">
+            <div class="stars">★★★★★</div>
+            <p data-i18n="reviews.r3">Чизкейк просто тает во рту, а бариста всегда помнит мой заказ.</p>
+            <cite data-i18n="reviews.n3">Ольга, постоянная гостья</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="section contacts" id="contacts">
+      <div class="container contacts__inner">
+        <div>
+          <h2 class="section__title" data-i18n="contacts.title">Контакты</h2>
+          <ul class="contacts__list">
+            <li><span class="icon">📍</span><span data-i18n="contacts.address">ул. Каштановая, 12 (вымышленный адрес)</span></li>
+            <li><span class="icon">🕖</span><span data-i18n="contacts.hours">Пн–Пт 7:00–22:00, Сб–Вс 9:00–23:00</span></li>
+            <li><span class="icon">📞</span><span>+7 (000) 000-00-00</span></li>
+            <li><span class="icon">✉️</span><span>hello@koritsa.example</span></li>
+          </ul>
+        </div>
+        <div class="map" aria-label="Карта">
+          <div class="map__pin">☕</div>
+          <p data-i18n="contacts.map">Здесь будет карта</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p data-i18n="footer.note">© 2026 Корица. Учебный проект, кофейни не существует.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
