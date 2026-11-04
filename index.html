@@ -25,6 +25,10 @@
       </nav>
       <div class="header__actions">
         <button class="lang" id="lang" type="button" aria-label="Сменить язык">EN</button>
+        <button class="cart-btn" id="cart-open" type="button" aria-label="Корзина">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cart-count" hidden>0</span>
+        </button>
         <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -136,6 +140,21 @@
       </div>
     </section>
   </main>
+
+  <!-- Корзина -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart" id="cart" aria-label="Корзина">
+    <div class="cart__head">
+      <h3 id="cart-title">Корзина</h3>
+      <button type="button" class="cart__close" id="cart-close" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="cart__list" id="cart-list"></div>
+    <div class="cart__foot">
+      <div class="cart__total"><span id="cart-total-label">Итого</span><strong id="cart-total">$0.00</strong></div>
+      <button type="button" class="btn btn--primary cart__checkout" id="checkout">Оформить заказ</button>
+      <button type="button" class="cart__clear" id="clear">Очистить корзину</button>
+    </div>
+  </aside>
 
   <footer class="footer">
     <div class="container">

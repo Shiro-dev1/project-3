@@ -82,13 +82,23 @@ function renderMenu() {
     return `<div class="item">
       <div class="item__top"><span class="item__name">${name}</span><span class="item__dots"></span><span class="item__price">${money(price)}</span></div>
       <p class="item__desc">${desc}</p>
-      ${sizes}
+      <div class="item__bottom">${sizes}<button type="button" class="add" data-add="${i}">+ ${UI[lang].add}</button></div>
     </div>`;
   }).join("");
 }
 
-// Клик по размеру: меняем цену
+// Клик по размеру: меняем цену. Клик по «В корзину»: добавляем товар
 document.getElementById("menu-list").addEventListener("click", (e) => {
+  const add = e.target.closest(".add");
+  if (add) {
+    const i = Number(add.dataset.add);
+    const hasSizes = Array.isArray(MENU[currentTab][i].price);
+    addToCart(currentTab, i, hasSizes ? (chosenSize[i] ?? 1) : null);
+    add.classList.add("is-added");
+    add.textContent = "✓ " + UI[lang].added;
+    setTimeout(() => { add.classList.remove("is-added"); add.textContent = "+ " + UI[lang].add; }, 1000);
+    return;
+  }
   const btn = e.target.closest(".size");
   if (!btn) return;
   const i = Number(btn.dataset.item);
@@ -101,6 +111,129 @@ document.getElementById("menu-list").addEventListener("click", (e) => {
   item.querySelector(".sizes__hint").textContent = SIZES[lang][size][1];
 });
 
+// ===== Корзина =====
+const UI = {
+  ru: {
+    add: "В корзину", added: "Добавлено", cart: "Корзина", empty: "Корзина пуста. Загляните в меню ☕",
+    total: "Итого", checkout: "Оформить заказ", clear: "Очистить корзину", remove: "Удалить",
+    thanks: "Спасибо! Заказ принят (это демо, деньги не списываются).", size: { 0: "маленький", 1: "средний", 2: "большой" },
+  },
+  en: {
+    add: "Add to cart", added: "Added", cart: "Cart", empty: "Your cart is empty. Check out the menu ☕",
+    total: "Total", checkout: "Checkout", clear: "Clear cart", remove: "Remove",
+    thanks: "Thank you! Order placed (this is a demo, no money is charged).", size: { 0: "small", 1: "medium", 2: "large" },
+  },
+};
+
+// Каждая строка корзины: { tab, i, size, qty }. size = null для чая и десертов.
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem("cart")) || []; } catch (e) { cart = []; }
+
+const cartEl = document.getElementById("cart");
+const overlay = document.getElementById("overlay");
+
+function unitPrice(row) {
+  const p = MENU[row.tab][row.i].price;
+  return row.size === null ? p : p[row.size];
+}
+
+function saveCart() {
+  try { localStorage.setItem("cart", JSON.stringify(cart)); } catch (e) {}
+}
+
+function addToCart(tab, i, size) {
+  const row = cart.find((r) => r.tab === tab && r.i === i && r.size === size);
+  if (row) row.qty += 1;
+  else cart.push({ tab, i, size, qty: 1 });
+  saveCart();
+  renderCart();
+  const badge = document.getElementById("cart-count");
+  badge.classList.remove("bump"); void badge.offsetWidth; badge.classList.add("bump");
+}
+
+function renderCart() {
+  const t = UI[lang];
+  const count = cart.reduce((sum, r) => sum + r.qty, 0);
+  const total = cart.reduce((sum, r) => sum + unitPrice(r) * r.qty, 0);
+  document.getElementById("cart-count").textContent = count;
+  document.getElementById("cart-count").hidden = count === 0;
+  document.getElementById("cart-title").textContent = t.cart;
+  document.getElementById("cart-total-label").textContent = t.total;
+  document.getElementById("cart-total").textContent = money(total);
+  document.getElementById("checkout").textContent = t.checkout;
+  document.getElementById("clear").textContent = t.clear;
+  document.getElementById("checkout").disabled = count === 0;
+  document.getElementById("clear").disabled = count === 0;
+
+  const list = document.getElementById("cart-list");
+  if (cart.length === 0) {
+    list.innerHTML = `<p class="cart__empty">${t.empty}</p>`;
+    return;
+  }
+  list.innerHTML = cart.map((r, k) => {
+    const name = MENU[r.tab][r.i][lang][0];
+    const size = r.size === null ? "" : `<span class="cart__size">${SIZES[lang][r.size][0]} · ${t.size[r.size]}</span>`;
+    return `<div class="cart__row">
+      <div class="cart__info">
+        <div class="cart__name">${name}</div>
+        ${size}
+        <div class="cart__unit">${money(unitPrice(r))}</div>
+      </div>
+      <div class="qty">
+        <button type="button" data-minus="${k}" aria-label="−1">−</button>
+        <span>${r.qty}</span>
+        <button type="button" data-plus="${k}" aria-label="+1">+</button>
+      </div>
+      <div class="cart__sum">${money(unitPrice(r) * r.qty)}</div>
+      <button type="button" class="cart__remove" data-remove="${k}" title="${t.remove}" aria-label="${t.remove}">✕</button>
+    </div>`;
+  }).join("");
+}
+
+function openCart() {
+  cartEl.classList.add("is-open");
+  overlay.classList.add("is-open");
+  document.body.style.overflow = "hidden";
+}
+function closeCart() {
+  cartEl.classList.remove("is-open");
+  overlay.classList.remove("is-open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("cart-open").addEventListener("click", openCart);
+document.getElementById("cart-close").addEventListener("click", closeCart);
+overlay.addEventListener("click", closeCart);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCart(); });
+
+// Кнопки внутри корзины: −, +, удалить
+document.getElementById("cart-list").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  if (b.dataset.plus !== undefined) cart[b.dataset.plus].qty += 1;
+  if (b.dataset.minus !== undefined) {
+    const k = Number(b.dataset.minus);
+    cart[k].qty -= 1;
+    if (cart[k].qty === 0) cart.splice(k, 1);
+  }
+  if (b.dataset.remove !== undefined) cart.splice(Number(b.dataset.remove), 1);
+  saveCart();
+  renderCart();
+});
+
+document.getElementById("clear").addEventListener("click", () => {
+  cart = [];
+  saveCart();
+  renderCart();
+});
+
+document.getElementById("checkout").addEventListener("click", () => {
+  cart = [];
+  saveCart();
+  renderCart();
+  document.getElementById("cart-list").innerHTML = `<p class="cart__thanks">${UI[lang].thanks}</p>`;
+});
+
 function setLang(next) {
   lang = next;
   const dict = lang === "en" ? EN : RU;
@@ -109,7 +242,9 @@ function setLang(next) {
   document.getElementById("lang").textContent = lang === "ru" ? "EN" : "RU";
   document.title = lang === "ru" ? "Корица — кофейня" : "Korica — coffee house";
   document.querySelector(".logo").firstChild.textContent = lang === "ru" ? "Корица" : "Korica";
+  document.getElementById("cart-open").setAttribute("aria-label", UI[lang].cart);
   renderMenu();
+  renderCart();
   try { localStorage.setItem("lang", lang); } catch (e) {}
 }
 
