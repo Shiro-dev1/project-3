@@ -140,6 +140,16 @@ nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
   burger.setAttribute("aria-expanded", false);
 }));
 
+// Клик по логотипу: плавно наверх, на главный экран
+document.querySelector(".logo").addEventListener("click", (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  history.replaceState(null, "", location.pathname);
+  nav.classList.remove("is-open");
+  burger.classList.remove("is-open");
+  burger.setAttribute("aria-expanded", false);
+});
+
 // Если фото не загрузилось, прячем его, остаётся красивый фон
 document.querySelectorAll(".photo img").forEach((img) => {
   const hide = () => { img.style.display = "none"; };
