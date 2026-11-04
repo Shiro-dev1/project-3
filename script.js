@@ -57,7 +57,7 @@ const EN = {
   "about.p1": "Coffee & Chill is a small coffee house in the heart of the city. We choose our beans from trusted roasters and make every cup as if we were making it for a friend.",
   "about.p2": "It smells of fresh pastries and cinnamon, soft music plays, and there is always a seat by the window to read or work.",
   "about.f1": "kinds of coffee", "about.f2": "homemade desserts", "about.f3": "open every day", "about.f3num": "7 AM",
-  "story.eyebrow": "Coffee Story", "story.title": "Where our coffee comes from",
+  "story.eyebrow": "Coffee Story", "story.title": "Where our beans come from",
   "story.lead": "Our arabica: Brazil & Ethiopia, medium roast, notes of chocolate and dried fruit.",
   "story.origin": "Origin", "story.brazil": "Brazil", "story.ethiopia": "Ethiopia",
   "story.brazil.note": "Body and chocolate sweetness", "story.ethiopia.note": "Brightness and fruity aroma",
