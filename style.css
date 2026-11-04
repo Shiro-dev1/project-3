@@ -451,6 +451,27 @@ h1, h2, .logo { font-family: "Playfair Display", Georgia, serif; }
 .done__btn { width: 100%; border: 0; cursor: pointer; font: 600 1rem "Inter", sans-serif; text-align: center; }
 .done__demo { margin-top: 12px; font-size: .75rem; color: var(--muted); opacity: .8; }
 
+/* ===== Кнопка «Наверх» ===== */
+.to-top {
+  position: fixed; right: 20px; bottom: 20px; z-index: 15;
+  width: 52px; height: 52px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--button); color: var(--light); box-shadow: 0 8px 24px rgba(46, 29, 18, .3);
+  display: grid; place-items: center;
+  opacity: 0; visibility: hidden; transform: translateY(16px) scale(.9);
+  transition: opacity .3s, transform .3s, visibility .3s, background .2s;
+}
+.to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { background: var(--button-dark); }
+.to-top:hover .to-top__arrow { transform: translateY(-3px); }
+.to-top svg { grid-area: 1 / 1; }
+.to-top__ring { width: 52px; height: 52px; transform: rotate(-90deg); }
+.to-top__ring circle { fill: none; stroke: var(--latte); stroke-width: 2.5; stroke-linecap: round; transition: stroke-dashoffset .1s linear; }
+.to-top__arrow {
+  width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.5;
+  stroke-linecap: round; stroke-linejoin: round; transition: transform .2s;
+}
+@media (max-width: 860px) { .to-top { right: 16px; bottom: 16px; width: 48px; height: 48px; } .to-top__ring { width: 48px; height: 48px; } }
+
 /* ===== Анимации при прокрутке ===== */
 .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; transition-delay: var(--d, 0ms); }
 .js .reveal.is-visible { opacity: 1; transform: none; }

@@ -676,6 +676,7 @@ function setLang(next) {
   renderStatus();
   renderProduct();
   updateThemeButton();
+  document.getElementById("to-top").setAttribute("aria-label", lang === "ru" ? "Наверх" : "Back to top");
   try { localStorage.setItem("lang", lang); } catch (e) {}
 }
 
@@ -739,6 +740,26 @@ document.querySelectorAll(".photo img").forEach((img) => {
   if (img.complete && img.naturalWidth === 0) hide();
   img.addEventListener("error", hide);
 });
+
+// ===== Кнопка «Наверх» =====
+// Появляется, когда прокрутили ниже главного экрана. Кольцо вокруг стрелки показывает, сколько страницы пройдено.
+const toTop = document.getElementById("to-top");
+const ring = toTop.querySelector(".to-top__ring circle");
+const RING_LEN = 2 * Math.PI * 22;
+ring.style.strokeDasharray = RING_LEN;
+function updateToTop() {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  const progress = max > 0 ? scrollY / max : 0;
+  ring.style.strokeDashoffset = RING_LEN * (1 - progress);
+  toTop.classList.toggle("is-visible", scrollY > innerHeight * 0.8);
+}
+addEventListener("scroll", updateToTop, { passive: true });
+addEventListener("resize", updateToTop);
+toTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  history.replaceState(null, "", location.pathname);
+});
+updateToTop();
 
 // ===== Анимации при прокрутке =====
 // Блоки плавно появляются, когда до них долистываешь.
