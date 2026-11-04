@@ -119,6 +119,15 @@ h1, h2, .logo { font-family: "Playfair Display", Georgia, serif; }
 .item__dots { flex: 1; border-bottom: 2px dotted var(--beige); transform: translateY(-4px); }
 .item__price { font-weight: 600; color: var(--brown); white-space: nowrap; }
 .item__desc { font-size: .92rem; color: #7a6253; margin-top: 4px; }
+.sizes { display: flex; align-items: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.sizes__label { font-size: .85rem; color: var(--brown); margin-right: 2px; }
+.size {
+  width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--latte);
+  background: none; color: var(--brown); font: 600 .85rem "Inter", sans-serif; cursor: pointer; transition: .2s;
+}
+.size:hover { background: var(--beige); }
+.size.is-active { background: var(--brown); border-color: var(--brown); color: var(--white); }
+.sizes__hint { font-size: .8rem; color: #7a6253; margin-left: 4px; }
 @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 /* ===== Галерея ===== */
